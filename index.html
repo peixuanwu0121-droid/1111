@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>翠瓷手作 Jade Pottery | 手的溫度，土的靈魂</title>
+    <!-- Google Fonts: Noto Serif TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'zen-beige': '#F9F8F4',
+                        'zen-gray': '#333333',
+                        'zen-green': '#4A5D4E',
+                        'zen-green-light': '#6B826F',
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif TC"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { background-color: #F9F8F4; color: #333; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .font-serif { font-family: 'Noto Serif TC', serif; }
+        
+        .cart-sidebar {
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.05);
+        }
+        .cart-open .cart-sidebar { transform: translateX(0); }
+        .cart-closed .cart-sidebar { transform: translateX(100%); }
+        
+        .product-card:hover img { transform: scale(1.05); }
+        .btn-zen {
+            transition: all 0.3s ease;
+        }
+        .btn-zen:hover {
+            background-color: #3d4d41;
+            transform: translateY(-1px);
+        }
+        
+        /* 隱藏捲軸但保留功能 */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.4));
+        }
+    </style>
+</head>
+<body class="cart-closed">
+
+    <nav class="fixed w-full z-50 bg-zen-beige/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="text-2xl font-serif font-bold tracking-widest text-zen-green">翠瓷手作</div>
+            
+            <div class="hidden md:flex space-x-8 text-sm tracking-widest font-medium">
+                <a href="#" class="hover:text-zen-green transition">首頁</a>
+                <a href="#products" class="hover:text-zen-green transition">所有作品</a>
+                <a href="#" class="hover:text-zen-green transition">關於品牌</a>
+                <a href="#" class="hover:text-zen-green transition">聯絡我們</a>
+            </div>
+
+            <div class="flex items-center space-x-5">
+                <button onclick="toggleCart()" class="relative p-2 hover:bg-gray-100 rounded-full transition">
+                    <i data-lucide="shopping-bag" class="w-6 h-6 text-zen-gray"></i>
+                    <span id="cart-badge" class="absolute top-0 right-0 bg-zen-green text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full hidden">0</span>
+                </button>
+                <button class="md:hidden p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=2070&auto=format&fit=crop" 
+             alt="Ceramic Craft" 
+             class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="relative z-10 text-center text-white px-4">
+            <h1 class="text-4xl md:text-6xl font-serif mb-6 tracking-[0.2em] opacity-0 translate-y-10 animate-[fadeInUp_1s_ease_forwards]">手的溫度，土的靈魂</h1>
+            <p class="text-lg md:text-xl font-light tracking-widest mb-10 opacity-0 translate-y-10 animate-[fadeInUp_1.2s_ease_forwards]">在泥土與火焰的交界，尋找生活的平靜。</p>
+            <a href="#products" class="inline-block border border-white px-10 py-3 hover:bg-white hover:text-zen-gray transition-all duration-300 tracking-[0.3em] text-sm opacity-0 animate-[fadeIn_2s_ease_forwards]">探索作品庫</a>
+        </div>
+    </section>
+
+    <main id="products" class="max-w-7xl mx-auto px-6 py-24">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-serif mb-4">精選作品</h2>
+            <div class="w-12 h-1 bg-zen-green mx-auto"></div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- Product 1 -->
+            <div class="product-card group">
+                <div class="relative overflow-hidden rounded-lg mb-4 aspect-[4/5] bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=2070&auto=format&fit=crop" alt="翠綠圓盤" class="w-full h-full object-cover transition-transform duration-700">
+                    <button onclick="addToCart(1, '翠綠釉面圓盤', 1280)" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur py-3 text-sm tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all btn-zen">加入購物車</button>
+                </div>
+                <h3 class="font-serif text-lg text-zen-gray">翠綠釉面圓盤</h3>
+                <p class="text-zen-green font-medium mt-1">NT$ 1,280</p>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card group">
+                <div class="relative overflow-hidden rounded-lg mb-4 aspect-[4/5] bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=2070&auto=format&fit=crop" alt="墨色茶杯" class="w-full h-full object-cover transition-transform duration-700">
+                    <button onclick="addToCart(2, '墨影手工茶杯', 850)" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur py-3 text-sm tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all btn-zen">加入購物車</button>
+                </div>
+                <h3 class="font-serif text-lg text-zen-gray">墨影手工茶杯</h3>
+                <p class="text-zen-green font-medium mt-1">NT$ 850</p>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card group">
+                <div class="relative overflow-hidden rounded-lg mb-4 aspect-[4/5] bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1590234910242-4911765c71b1?q=80&w=2000&auto=format&fit=crop" alt="白瓷花瓶" class="w-full h-full object-cover transition-transform duration-700">
+                    <button onclick="addToCart(3, '素心白瓷小花瓶', 2,100)" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur py-3 text-sm tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all btn-zen">加入購物車</button>
+                </div>
+                <h3 class="font-serif text-lg text-zen-gray">素心白瓷小花瓶</h3>
+                <p class="text-zen-green font-medium mt-1">NT$ 2,100</p>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card group">
+                <div class="relative overflow-hidden rounded-lg mb-4 aspect-[4/5] bg-gray-200">
+                    <img src="https://images.unsplash.com/photo-1610620313133-66f642646d5c?q=80&w=2070&auto=format&fit=crop" alt="大地長盤" class="w-full h-full object-cover transition-transform duration-700">
+                    <button onclick="addToCart(4, '大地氣息長形盤', 1,650)" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur py-3 text-sm tracking-widest opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all btn-zen">加入購物車</button>
+                </div>
+                <h3 class="font-serif text-lg text-zen-gray">大地氣息長形盤</h3>
+                <p class="text-zen-green font-medium mt-1">NT$ 1,650</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[60] hidden transition-opacity"></div>
+    <div class="cart-sidebar fixed top-0 right-0 h-full w-full max-w-sm bg-white z-[70] p-8 flex flex-col">
+        <div class="flex items-center justify-between mb-10">
+            <h2 class="text-2xl font-serif">您的購物車</h2>
+            <button onclick="toggleCart()" class="p-2 hover:bg-gray-100 rounded-full transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+
+        <!-- 購物車品項列表 -->
+        <div id="cart-items" class="flex-grow overflow-y-auto no-scrollbar space-y-6">
+            <!-- JS 動態插入 -->
+            <p class="text-gray-400 text-center py-10">您的購物車目前是空的</p>
+        </div>
+
+        <div class="mt-8 border-t pt-8">
+            <div class="flex justify-between items-end mb-6">
+                <span class="text-gray-500 tracking-widest">總計金額</span>
+                <span id="cart-total" class="text-2xl font-serif text-zen-green">NT$ 0</span>
+            </div>
+            <button onclick="checkout()" class="w-full bg-zen-green text-white py-4 rounded-md tracking-[0.3em] font-medium btn-zen">前往結帳</button>
+        </div>
+    </div>
+
+    <footer class="bg-white py-16 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="text-xl font-serif font-bold text-zen-green mb-6">翠瓷手作</div>
+            <div class="flex justify-center space-x-6 mb-8 text-gray-400">
+                <a href="#" class="hover:text-zen-green transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-zen-green transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                <a href="#" class="hover:text-zen-green transition"><i data-lucide="mail" class="w-5 h-5"></i></a>
+            </div>
+            <p class="text-xs text-gray-400 tracking-widest">© 2024 JADE POTTERY STUDIO. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-zen-gray text-white px-6 py-3 rounded-full text-sm tracking-widest z-[100] translate-y-20 opacity-0 transition-all duration-300">
+        已加入購物車
+    </div>
+
+    <script>
+        let cart = [];
+        const cartBadge = document.getElementById('cart-badge');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalDisplay = document.getElementById('cart-total');
+        const toast = document.getElementById('toast');
+
+        // 初始化圖標
+        lucide.createIcons();
+
+        function toggleCart() {
+            const body = document.body;
+            const overlay = document.getElementById('cart-overlay');
+            if (body.classList.contains('cart-closed')) {
+                body.classList.replace('cart-closed', 'cart-open');
+                overlay.classList.remove('hidden');
+            } else {
+                body.classList.replace('cart-open', 'cart-closed');
+                overlay.classList.add('hidden');
+            }
+        }
+
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            updateCartUI();
+            showToast(`${name} 已加入`);
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // 更新數量標籤
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (totalItems > 0) {
+                cartBadge.innerText = totalItems;
+                cartBadge.classList.remove('hidden');
+            } else {
+                cartBadge.classList.add('hidden');
+            }
+
+            // 更新列表
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-gray-400 text-center py-10">您的購物車目前是空的</p>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between border-b border-gray-50 pb-4">
+                        <div class="flex-grow">
+                            <h4 class="text-sm font-serif text-zen-gray">${item.name}</h4>
+                            <p class="text-xs text-gray-400 mt-1">NT$ ${item.price.toLocaleString()} x ${item.quantity}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-gray-300 hover:text-red-400 transition">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `).join('');
+                lucide.createIcons();
+            }
+
+            // 更新總價
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalDisplay.innerText = `NT$ ${totalAmount.toLocaleString()}`;
+        }
+
+        function showToast(message) {
+            toast.innerText = message;
+            toast.classList.replace('translate-y-20', 'translate-y-0');
+            toast.classList.replace('opacity-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.replace('translate-y-0', 'translate-y-20');
+                toast.classList.replace('opacity-100', 'opacity-0');
+            }, 2000);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('購物車還是空的喔');
+                return;
+            }
+            // 使用自定義遮罩代替 alert
+            const checkoutModal = document.createElement('div');
+            checkoutModal.className = "fixed inset-0 bg-white z-[200] flex items-center justify-center p-6 text-center";
+            checkoutModal.innerHTML = `
+                <div>
+                    <i data-lucide="check-circle" class="w-16 h-16 text-zen-green mx-auto mb-6"></i>
+                    <h2 class="text-3xl font-serif mb-4">感謝您的選購</h2>
+                    <p class="text-gray-500 mb-8">我們已收到您的訂單，職人將儘速為您準備作品。</p>
+                    <button onclick="location.reload()" class="bg-zen-green text-white px-10 py-3 rounded-md tracking-widest">返回首頁</button>
+                </div>
+            `;
+            document.body.appendChild(checkoutModal);
+            lucide.createIcons();
+        }
+
+        // 動畫輔助
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-sm');
+            } else {
+                nav.classList.remove('shadow-sm');
+            }
+        });
+    </script>
+
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</body>
+</html>
